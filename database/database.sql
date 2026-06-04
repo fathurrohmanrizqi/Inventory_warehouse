@@ -9,17 +9,14 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `users` (`id`, `username`, `password`, `nama_lengkap`) VALUES
-(1, 'admin', '0192023a7bbd73250516f069df18b500', 'Administrator');
-
 CREATE TABLE `kategori_barang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_kategori` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO `kategori_barang` (`id`, `nama_kategori`) VALUES
-(1, 'Semen'), (2, 'Cat'), (3, 'Paku');
 
 CREATE TABLE `barang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -27,14 +24,14 @@ CREATE TABLE `barang` (
   `kode_barang` varchar(20) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
   `satuan` varchar(20) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0,
+  `minimum_stock` int(11) NOT NULL DEFAULT 10,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`kategori_id`) REFERENCES `kategori_barang` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO `barang` (`id`, `kategori_id`, `kode_barang`, `nama_barang`, `satuan`) VALUES
-(1, 1, 'BRG001', 'Semen Tiga Roda 50kg', 'Sak'),
-(2, 2, 'BRG002', 'Cat Dulux Putih 5kg', 'Galon'),
-(3, 3, 'BRG003', 'Paku Payung 5cm', 'Kg');
 
 CREATE TABLE `transaksi_stok` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -43,13 +40,10 @@ CREATE TABLE `transaksi_stok` (
   `jumlah` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `keterangan` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`) ON DELETE CASCADE,
   FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO `transaksi_stok` (`id`, `barang_id`, `jenis_transaksi`, `jumlah`, `tanggal`, `keterangan`, `user_id`) VALUES
-(1, 1, 'masuk', 100, CURDATE(), 'Stok awal', 1),
-(2, 2, 'masuk', 50, CURDATE(), 'Stok awal', 1),
-(3, 1, 'keluar', 10, CURDATE(), 'Terjual', 1);
