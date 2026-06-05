@@ -21,7 +21,7 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstal:
 
 1. **Clone Repositori**
    ```bash
-   git clone https://github.com/username/lspgudang.git
+   git clone https://github.com/fathurrohmanrizqi/lspgudang.git
    ```
    *Pindahkan folder proyek ke dalam direktori `htdocs` jika menggunakan XAMPP.*
 

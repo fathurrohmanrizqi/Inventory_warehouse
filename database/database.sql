@@ -9,6 +9,9 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `users` (`username`, `password`, `nama_lengkap`) 
+VALUES ('admin', MD5('admin123'), 'Administrator');
+
 CREATE TABLE `kategori_barang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_kategori` varchar(100) NOT NULL,
